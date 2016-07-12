@@ -25,8 +25,22 @@ $ npm install pre-suf --save
 ## Usage
 
 ```js
-let pre_suf = require('pre-suf')
+let presuf = require('pre-suf
+
+presuf.ensureLeading('path/to', '/')   // '/path/to'
 ```
+
+### presuf.ensureLeading(str, prefix)
+
+Ensures that the new string will have `prefix` at the beginning of `str`.
+
+### presuf.removeLeading(str, prefix)
+
+Removes the leading `prefix` of `str`.
+
+### presuf.ensureEnding(str, suffix)
+
+### presuf.removeEnding(str, suffix)
 
 ## License
 
