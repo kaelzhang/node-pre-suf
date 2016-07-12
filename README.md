@@ -27,7 +27,8 @@ $ npm install pre-suf --save
 ```js
 let presuf = require('pre-suf
 
-presuf.ensureLeading('path/to', '/')   // '/path/to'
+presuf.ensureLeading('path/to', '/')    // '/path/to'
+presuf.removeEnding('/path/to//', '/')  // '/path/to'
 ```
 
 ### presuf.ensureLeading(str, prefix)
