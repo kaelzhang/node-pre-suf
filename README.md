@@ -14,7 +14,7 @@
 
 # pre-suf
 
-<!-- description -->
+Manipulate strings with prefixes and suffixes.
 
 ## Install
 
