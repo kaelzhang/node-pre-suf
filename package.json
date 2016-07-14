@@ -1,6 +1,6 @@
 {
   "name": "pre-suf",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Manipulate strings with prefixes and suffixes.",
   "main": "./lib",
   "scripts": {
