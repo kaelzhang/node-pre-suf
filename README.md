@@ -25,7 +25,7 @@ $ npm install pre-suf --save
 ## Usage
 
 ```js
-let presuf = require('pre-suf
+let presuf = require('pre-suf')
 
 presuf.ensureLeading('path/to', '/')    // '/path/to'
 presuf.removeEnding('/path/to//', '/')  // '/path/to'
