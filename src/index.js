@@ -1,12 +1,23 @@
-'use strict'
-
 const escapeString = require('escape-string-regexp')
 
+const check = (str, name = 'str') => {
+  if (typeof str !== 'string') {
+    throw new TypeError(`${name} must be a string, but got ${str}`)
+  }
+}
 
-function makeRegExp (str, leading, repeat = true) {
-  let escaped = escapeString(str)
+const make = (str, fix, remove, leading) => {
+  check(str)
 
-  if (repeat) {
+  const name = leading
+    ? 'prefix'
+    : 'suffix'
+
+  check(fix, name)
+
+  let escaped = escapeString(fix)
+
+  if (remove) {
     escaped = `(?:${escaped})*`
   }
 
@@ -16,37 +27,25 @@ function makeRegExp (str, leading, repeat = true) {
     escaped = escaped + '$'
   }
 
-  return new RegExp(escaped)
+  return [str, new RegExp(escaped)]
 }
 
+const remove = (str, regex) => str.replace(regex, '')
 
-exports.ensureLeading = (str, prefix) => {
-  let regex = makeRegExp(prefix, true, false)
+const ensure = (str, regex, fix, leading) => regex.test(str)
+  ? str
+  : leading
+    ? fix + str
+    : str + fix
 
-  if (regex.test(str)) {
-    return str
-  }
+exports.ensureLeading = (str, prefix) =>
+  ensure(...make(str, prefix, false, true), prefix, true)
 
-  return prefix + str
-}
+exports.removeLeading = (str, prefix) =>
+  remove(...make(str, prefix, true, true))
 
+exports.ensureEnding = (str, suffix) =>
+  ensure(...make(str, suffix), suffix)
 
-exports.removeLeading = (str, prefix) => {
-  return str.replace(makeRegExp(prefix, true), '')
-}
-
-
-exports.ensureEnding = (str, suffix) => {
-  let regex = makeRegExp(suffix, false, false)
-
-  if (regex.test(str)) {
-    return str
-  }
-
-  return str + suffix
-}
-
-
-exports.removeEnding = (str, suffix) => {
-  return str.replace(makeRegExp(suffix, false), '')
-}
+exports.removeEnding = (str, suffix) =>
+  remove(...make(str, suffix, true))

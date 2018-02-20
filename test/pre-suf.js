@@ -35,4 +35,49 @@ describe('presuf', function () {
     expect(presuf.removeEnding('b/a/a', '/a')).to.equal('b')
     expect(presuf.removeEnding('/a/ab/a', '/a')).to.equal('/a/ab')
   })
+
+  it('error',  function () {
+    throws(function () {
+      presuf.ensureLeading()
+    }, 'str must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.ensureLeading('a')
+    }, 'prefix must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.removeLeading()
+    }, 'str must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.removeLeading('a')
+    }, 'prefix must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.ensureEnding()
+    }, 'str must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.ensureEnding('a')
+    }, 'suffix must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.removeEnding()
+    }, 'str must be a string, but got undefined', 'ensureLeading str')
+
+    throws(function () {
+      presuf.removeEnding('a')
+    }, 'suffix must be a string, but got undefined', 'ensureLeading str')
+  })
 })
+
+function throws (fn, message, d) {
+  try {
+    fn()
+  } catch (e) {
+    expect(e.message).to.equal(message)
+    return
+  }
+
+  throw new Error('should fail: ' + d)
+}
